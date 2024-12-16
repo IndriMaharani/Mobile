@@ -1,16 +1,16 @@
+// import 'package:myapp/app/modules/pegawai/controllers/pegawai_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myapp/app/modules/dosen/controllers/dosen_controller.dart';
+import 'package:myapp/app/modules/pegawai/controllers/pegawai_controller.dart';
 
-class DosenUpdateView extends GetView<DosenController> {
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:2247181989.
-  const DosenUpdateView({Key? key}) : super(key: key);
+class PegawaiUpdateView extends GetView<PegawaiController> {
+  const PegawaiUpdateView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold( 
+    return Scaffold(
       appBar: AppBar(
-        title: const Text('Ubah Dosen'),
+        title: const Text('Ubah Pegawai'),
         centerTitle: true,
       ),
       body: FutureBuilder<DocumentSnapshot<Object?>>(
@@ -18,19 +18,18 @@ class DosenUpdateView extends GetView<DosenController> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             var data = snapshot.data!.data() as Map<String, dynamic>;
-            controller.cNidn.text = data['nidn'];
+            controller.cId.text = data['id'];
             controller.cNama.text = data['nama'];
-            controller.cProdi.text = data['prodi'];
-
+            controller.cJabatan.text = data['jabatan'];
             return Padding(
               padding: EdgeInsets.all(8),
               child: Column(
                 children: [
                   TextField(
-                    controller: controller.cNidn,
+                    controller: controller.cId,
                     autocorrect: false,
                     textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(labelText: "Nidn"),
+                    decoration: InputDecoration(labelText: "Id"),
                   ),
                   SizedBox(
                     height: 10,
@@ -43,20 +42,11 @@ class DosenUpdateView extends GetView<DosenController> {
                   SizedBox(
                     height: 30,
                   ),
-                  TextField(
-                    controller: controller.cProdi,
-                    textInputAction: TextInputAction.done,
-                    decoration: InputDecoration(labelText: "Prodi"),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
                   ElevatedButton(
                     onPressed: () => controller.Update(
-                      controller.cNidn.text,
+                      controller.cId.text,
                       controller.cNama.text,
-                      controller.cProdi.text,
-                      Get.arguments,
+                      controller.cJabatan.text,
                     ),
                     child: Text("Ubah"),
                   )
